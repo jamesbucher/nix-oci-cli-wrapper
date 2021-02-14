@@ -12,3 +12,34 @@ The venv is written to $HOME/.bin/lib/nix-python-installs/<nix-package-derivatio
 It should also be noted that pip caches package installs in the user directory so this is another loction where garbage can hang around.
 
 This script also take a dependency on the folder being named "/nix/store/<derivation-name>" In order to determine the final nix-package-derivation-path.
+
+# Use within Home Manager
+
+Add the following to your home manager as a separate file (named for example oci-cli.nix):
+
+```
+{ config, lib, pkgs, ... }:
+
+let
+  oci_cli = import (pkgs.fetchFromGitHub {
+    owner = "jamesbucher";
+    repo = "nix-oci-cli-wrapper";
+    rev = "9f19508add747cd1ae301974623f346267d0d1e4";
+    sha256 = "EyD4UIQJVR3TFJHZkF8VuiKfi6mxQ6gfBU9iFwsXwaU=";
+  });
+in {
+   home.packages = with pkgs; [
+     oci_cli.defaultPackage.x86_64-linux
+   ]
+}
+```
+
+Then in your main file you can just import the above file into your home.nix using the "imports" section like so:
+```
+{ pkgs, ... }:
+{
+  imports = [
+    ./oci-cli.nix
+  ];
+}
+```
