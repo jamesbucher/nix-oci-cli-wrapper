@@ -5,6 +5,13 @@
   # versions of things
   inputs.nixpkgs.url = github:NixOS/nixpkgs/cd63096d6d887d689543a0b97743d28995bc9bc3;
 
+  # Make this library compatible with old nix
+  # See: https://nixos.wiki/wiki/Flakes
+  inputs.flake-compat = {
+    url = "github:edolstra/flake-compat";
+    flake = false;
+  };
+
   outputs = { self, nixpkgs }: {
     defaultPackage.x86_64-linux = 
       with import nixpkgs { system = "x86_64-linux"; };
