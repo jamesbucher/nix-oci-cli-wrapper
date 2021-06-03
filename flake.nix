@@ -3,7 +3,7 @@
 
   # Bind the nixpkgs input to the 20.09 version that way it doesn't grab random
   # versions of things
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-20.09";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.05";
 
   # Make this library compatible with old nix
   # See: https://nixos.wiki/wiki/Flakes
